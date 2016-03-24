@@ -3,8 +3,9 @@ import Messages from "../containers/Messages";
 
 const Chat = () => (
   <div className="chat">
-    <Messages />
-    <Messages />
+    <Messages index={0} />
+    <Messages index={1} />
+    <Messages index={2} />
   </div>
 );
 
