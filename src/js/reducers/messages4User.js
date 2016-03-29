@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import messages from "./messages";
+import rooms from "./rooms";
 import user from "./user";
 
 export default combineReducers({
-    messages,
+    rooms,
     user
 });

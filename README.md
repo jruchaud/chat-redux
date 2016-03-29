@@ -8,6 +8,4 @@ npm start
 ```
 
 TODO:
-* Username
-* Room
 * RTC

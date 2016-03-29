@@ -38,3 +38,11 @@ body {
     height: 35px;
     font-size: 18px;
 }
+
+.room-name {
+    cursor: pointer;
+}
+
+.room-selected {
+    text-decoration: underline;
+}

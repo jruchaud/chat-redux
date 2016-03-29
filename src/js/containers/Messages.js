@@ -1,13 +1,17 @@
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
-import {login, addMessage} from "../actions/actions";
+import Rooms from "./Rooms";
+import {login, addMessage, setRoom, addRoom} from "../actions/actions";
 
 const mapStateToProps = (state, {index}) => {
     let subState = state[index];
     if (subState) {
+        let rooms = subState.rooms;
+
         return {
             name: subState.user.name,
-            messages: subState.messages
+            messages: rooms.rooms[rooms.room],
+            room: rooms.room
         };
     }
 
@@ -18,14 +22,16 @@ const mapDispatchToProps = (dispatch, {index}) => {
     return {
         onLogin: (name) => {
             dispatch(login(index, name));
+            dispatch(addRoom(index, "test"));
+            dispatch(setRoom(index, "test"));
         },
-        onAddMessage: (name, message) => {
-            dispatch(addMessage(name, message));
+        onAddMessage: (name, room, message) => {
+            dispatch(addMessage(name, room, message));
         }
     };
 };
 
-let Messages = ({name, messages, onAddMessage, onLogin}) => {
+let Messages = ({name, room, messages, onAddMessage, onLogin, index}) => {
     let input;
 
     return (
@@ -41,7 +47,7 @@ let Messages = ({name, messages, onAddMessage, onLogin}) => {
                 e => {
                     if (e.keyCode === 13) {
                         if (name) {
-                            onAddMessage(name, input.value);
+                            onAddMessage(name, room, input.value);
                         } else {
                             onLogin(input.value);
                         }
@@ -49,18 +55,23 @@ let Messages = ({name, messages, onAddMessage, onLogin}) => {
                     }
                 }
             }
+            placeholder={name ? "enter your message" : "enter your login"}
             ref={node => {
                 input = node;
             }} />
+
+            <Rooms index={index}/>
         </div>
     );
 };
 
 Messages.propTypes = {
+    index: PropTypes.number.isRequired,
     messages: PropTypes.array,
     name: PropTypes.string,
     onAddMessage: PropTypes.func.isRequired,
-    onLogin: PropTypes.func.isRequired
+    onLogin: PropTypes.func.isRequired,
+    room: PropTypes.string
 };
 
 Messages = connect(
