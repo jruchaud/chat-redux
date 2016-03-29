@@ -4,8 +4,14 @@ Create an example with redux.
 
 Run with:
 ```
+npm install
 npm start
 ```
 
+Features:
+* Login
+* Send message
+* Rooms
+
 TODO:
-* RTC
+* Communication with web RTC
